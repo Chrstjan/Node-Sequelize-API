@@ -1,5 +1,8 @@
 import express from "express";
-import sequelize from "../Config/sequelizeConfig.js";
+import sequelize from "../Config/sequelize.config.js";
+import { CarModel } from "../Models/car.model.js";
+import { BrandModel } from "../Models/brand.model.js";
+import { CategoryModel } from "../Models/category.model.js";
 
 export const dbController = express.Router();
 
