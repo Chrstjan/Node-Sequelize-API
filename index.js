@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import dbController from "./Controllers/dbController.js";
+import dbController from "./Controllers/db.controller.js";
+import { brandController } from "./Controllers/brand.controller.js";
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.get("/", (req, res) => {
   res.send("Welcome");
 });
 
-app.use(dbController);
+app.use(dbController, brandController);
 
 app.listen(port, () => {
   console.log(`Server live on http://localhost:${port}`);
