@@ -1,6 +1,5 @@
 import express from "express";
 import { BrandModel } from "../Models/brand.model.js";
-import { where } from "sequelize";
 
 export const brandController = express.Router();
 
@@ -82,21 +81,22 @@ brandController.put("/brands", async (req, res) => {
   }
 });
 
-brandController.delete("/brands", async (req, res) => {
-  const { id } = req.body;
+brandController.delete("/brands/:id([0-9]*)", async (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
 
-  if (id) {
-    try {
-      const result = await BrandModel.destroy({ where: { id } });
+    let result = await BrandModel.destroy({ where: { id } });
+
+    if (result > 0) {
       res.status(200).json({
         message: `Brand deleted`,
       });
-    } catch (err) {
+    } else {
       res.status(404).json({ message: `Brand with the id ${id} not found` });
     }
-  } else {
+  } catch (err) {
     res.status(500).json({
-      message: `Error in deleting from BrandModel. Id not found: ${err.message}`,
+      message: `Error in deleting from BrandModel: ${err.message}`,
     });
   }
 });
