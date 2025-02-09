@@ -18,7 +18,7 @@ categoryController.get("/category", async (req, res) => {
   }
 });
 
-categoryController.get("/category:id([0-9]*)", async (req, res) => {
+categoryController.get("/category/:id([0-9]*)", async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
 
@@ -35,7 +35,7 @@ categoryController.get("/category:id([0-9]*)", async (req, res) => {
     res.json(result);
   } catch (err) {
     res.status(500).json({
-      message: `Error i call from CategoryModel: ${err.message}`,
+      message: `Error in call from CategoryModel: ${err.message}`,
     });
   }
 });
